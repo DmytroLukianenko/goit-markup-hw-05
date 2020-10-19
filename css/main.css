@@ -91,6 +91,11 @@
 
 .site-nav {
   display: flex;
+  position: relative;
+}
+.item {
+  display: block;
+  position: relative;
 }
 
 .site-nav .item:not(:last-child) {
@@ -98,16 +103,29 @@
 }
 
 .site-nav-link {
-  display: block;
-
+  display: inline-block;
   color: var(--title-text-color);
-
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 500;
   font-size: 14px;
   line-height: 1.1;
   letter-spacing: 0.02em;
   text-decoration: none;
 }
+
+.site-nav-link:hover::before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 100%;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+}
+
 .site-nav .current {
   color: var(--accent-color);
 }
@@ -134,15 +152,15 @@
   display: flex;
   margin-left: auto;
 }
-.site-nav-right-link {
-  font-style: normal;
-}
 
 .site-nav-right-link {
   display: flex;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 
   color: var(--primary-text-color);
 
+  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.1;
@@ -273,11 +291,41 @@
   justify-content: center;
 }
 
-.services-list-image {
+.services-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.services-list-point {
+  display: flex;
+  position: relative;
   flex-basis: calc((100%-2 * 30px) / 3);
 }
-.services-list-image:not(:last-child) {
+
+.services-list-point:not(:last-child) {
   margin-right: 30px;
+}
+
+.services-text {
+  width: 370px;
+  height: 70px;
+  position: absolute;
+  display: flex;
+  bottom: 0%;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1.14;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 27px 82px;
+  margin: 0;
+  background-color: rgba(47, 48, 58, 0.8);
+  color: var(--primary-bg-color);
 }
 /* SOCIAL MEDIA */
 
@@ -300,6 +348,8 @@
 }
 .team-svg {
   fill: #afb1b8;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
 }
 .team-svg:hover,
 .team-svg:focus {
@@ -310,6 +360,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -393,20 +446,27 @@
   display: flex;
 }
 
-.client-logo {
+.clients-logo-list {
   display: flex;
 }
 .clients-logo {
   display: flex;
+
   justify-content: center;
   align-items: center;
+
   width: 170px;
   height: 90px;
   border: 1px solid #afb1b8;
   border-radius: 4px;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  text-decoration: none;
 }
 
-.clients-logo:hover {
+.clients-logo:hover,
+.clients-logo:focus {
   border: 1px var(--accent-color) solid;
 }
 .clients-logo:hover .clients-svg {
@@ -414,6 +474,9 @@
 }
 
 .clients-svg {
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
   fill: #afb1b8;
 }
 
@@ -525,6 +588,8 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-icon:hover,
@@ -625,6 +690,55 @@
   margin-bottom: 30px;
 }
 
+.offer-item:hover .offer-overlay::before,
+.offer-item:hover .offer-overlay-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.offer-overlay:before {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 150, 243, 0.9);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.offer-overlay-text {
+  display: flex;
+  position: absolute;
+  margin: 0;
+  padding: 64px 24px;
+  top: 0;
+  left: 0;
+  width: 322px;
+  height: 168px;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.56;
+  color: var(--primary-bg-color);
+
+  letter-spacing: 0.03em;
+
+  transform: translateY(100%);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  opacity: 0;
+}
+
+.offer-overlay {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
 .offer-item:nth-last-child(-n + 3) {
   margin-bottom: 0px;
 }
@@ -633,7 +747,7 @@
     1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 
-.offer p {
+.offer-description-text {
   font-weight: normal;
   font-size: 16px;
   line-height: 1.9px;
@@ -647,4 +761,7 @@
 
 .offer a {
   text-decoration: none;
+}
+
+.backdrop {
 }
